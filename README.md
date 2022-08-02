@@ -1,6 +1,6 @@
 # Payvolt User Guide
 
-Documentation for payvolt users \ service providers.
+Documentation for [payvolt](https://payvolt.io) users \ service providers.
 
 ## Content
 
