@@ -96,14 +96,14 @@ The features of this API include getting data about user\s, connecting and verif
 
 * /verification/{verification-id}
 
-    > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/verification/{verification-id}`
+    > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/verification/{verification-id}`  
     method: delete  
     auth-required: true  
     returns: delete the verification link.
 
 * /verification/{verification-id}
 
-    > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/verification/{verification-id}`
+    > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/verification/{verification-id}`  
     method: get  
     auth-required: true  
     returns: data about the verification, was it verified and by who.
