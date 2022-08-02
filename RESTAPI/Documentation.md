@@ -12,7 +12,7 @@ The features of this API include getting data about user\s, connecting and verif
 
 ## Table Of Contents
 
-1. [url and endpoints list.](#url--endpoints-endpoints)
+1. [url and endpoints list.](#url--endpoints)
 
 2. Base response structure.
 
