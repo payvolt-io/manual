@@ -22,6 +22,6 @@ The features of this API include getting data about user\s, connecting and verif
 
 5. User Verification.
 
-## URL & Endpoints {#endpoints}
+## URL & Endpoints
 
 dasdasfasf
