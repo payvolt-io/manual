@@ -77,7 +77,7 @@ there are 3 ways of getting user id of **another user**.
     auth-required: true  
     returns: data about authentication token.  
 
-* /miners
+* [/miners](#miners)
 
     > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/miners`  
     method: get  
@@ -105,7 +105,7 @@ there are 3 ways of getting user id of **another user**.
     auth-required: true  
     returns: data of specific user that the requester mine or mined for them.  
 
-* /settings/{payvolt-user-id}
+* [/settings/{payvolt-user-id}](#settingspayvolt-user-id)
 
     > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/settings/{payvolt-user-id}`  
     method: get  
@@ -318,10 +318,43 @@ returns: data about authentication token.
 
 ## User Data
 
-Fetching data about users
+Endpoints for getting information about users, and their earnings for you.
+
+### /settings/{payvolt-user-id}
+
+This Endpoint is used to get information about a user.
+which includes: name, description, profile pic, ethereum wallet, btc wallet, preferred payment.  
+
+> url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/settings/{payvolt-user-id}`  
+method: get  
+auth-required: false  
+returns: info about a user (name, description, avatar, wallet address, payment preference).  
+
+*the endpoint doesn't require authentication*
+
+**response body:**
+
+```json
+{
+    "success": true,
+    "data": {
+        "name": "JohnDoe",
+        "payment": "eth",
+        "eth": "0xE75e39FEecf6e9E6AA293cA037A7Ae6a17940A40",
+        "description": "ssssafasf",
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/payvolt-4ae09.appspot.com/o/profiles%2F3d8a1410-d492-4388-8280-defcbc9c857a?alt=media&token=f607da9b-d778-41aa-99cb-d0914f47b392",
+        "btc": "1HyyZxZAQjZenHf9TGsdUY9cxvMpbGjGBz"
+    },
+    "errors": []
+}
+```
+
+### /miners
+
+Get a list of all the users that are mining or mined for you.
 
 ## User Verification
 
-Verifiying a user and connecting him to your platform
+Verifying a user and connecting him to your platform
 
 ## For Miners And Other stuff
