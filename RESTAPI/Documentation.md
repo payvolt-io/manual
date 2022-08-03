@@ -12,7 +12,7 @@ The features of this API include getting data about user\s, connecting and verif
 
 ## Table Of Contents
 
-1. [Url and Endpoints list.](#url--endpoints)
+1. [Url and Endpoints list.](#url-and-endpoints)
 
 2. [Base Response Model Structure.](#base-response-model-structure)
 
@@ -22,9 +22,9 @@ The features of this API include getting data about user\s, connecting and verif
 
 5. [User Verification.](#user-verification)
 
-6. [For Miners And more](#for-miners--other-stuff)
+6. [For Miners And more](#for-miners-and-other-stuff)
 
-## URL & Endpoints
+## URL And Endpoints
 
 * Base URL
 
@@ -166,4 +166,4 @@ Fetching data about users
 
 Verifiying a user and connecting him to your platform
 
-## For Miners & Other stuff
+## For Miners And Other stuff
