@@ -8,7 +8,7 @@ if you encountered any issues or need guidance, you can open a ticket in our [di
 
 Payvolt provides a simple RESTful API that you can embed in your app\platform.  
 This document explains how to use the payvolt RESTful API and assumes you are familiar with using and preforming [REST API](https://aws.amazon.com/what-is/restful-api/) calls.  
-The features of this API include getting data about user\s, connecting and verifying payvolt users in your platform.
+The features of this API include getting data about user\s (how much they mined for you), connecting and verifying payvolt users in your platform.
 
 **to use this API you will need a payvolt user, sign up at [payvolt](https://payvolt.io).**
 
@@ -219,7 +219,7 @@ a response might have multiple errors in the errors list if a few request inputs
 
 ### *high level preface*
 
-Payvolt uses the [bearer token](https://swagger.io/docs/specification/authentication/bearer-authentication/) type authentication. in short, to use an endpoint that requires authentication a bearer token will need to be present in the request header.
+Payvolt uses the [bearer token](https://swagger.io/docs/specification/authentication/bearer-authentication/) ([jwt](https://jwt.io)) type authentication. in short, to use an endpoint that requires authentication a bearer token will need to be present in the request header.
 
 ```yaml
 Authorization: Bearer <token>
@@ -231,7 +231,7 @@ a token expires after **one hour** of issuing and there is no way to prolong it 
 
 **Don't** use your sign in credentials in a front end app where users has access to it, you will have a high risk of being compromised.
 
-it's **highly recommended** to use your sign in credentials as [**secrets**](https://www.cyberark.com/what-is/secrets-management/)
+it's **highly recommended** to use your sign in credentials as [**secrets**](https://www.cyberark.com/what-is/secrets-management/).
 
 ### /signin
 
@@ -264,6 +264,14 @@ returns: jwt bearer token to be used in endpoints that require authentication.
     },
     "errors": []
 }
+```
+
+*In order to use the token in endpoints that require authorization, insert it in the* **header** *in the* Authorization **key** *(create it if it doesn't exist). the key value needs to be the token* **predeceased** *by* **bearer**  
+
+header example:  
+
+```yaml
+Authorization: Bearer fAKeToKeNiJSUzI1NiIsImtp...
 ```
 
 ### /auth
