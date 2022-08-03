@@ -266,9 +266,8 @@ returns: jwt bearer token to be used in endpoints that require authentication.
 }
 ```
 
-*In order to use the token in endpoints that require authorization, insert it in the* **header** *in the* **Authorization** *key (create it if it doesn't exist). the key value needs to be the token with the string* **bearer** *before it.*  
-
-header example:  
+> *In order to use the token in endpoints that require authorization, insert it in the* **header** *in the* **Authorization** *key (create it if it doesn't exist). the key value needs to be the token with the string* **bearer** *before it.*  
+authenticated request header example:  
 
 ```yaml
 Authorization: Bearer fAKeToKeNiJSUzI1NiIsImtp...
