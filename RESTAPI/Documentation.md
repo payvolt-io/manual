@@ -12,15 +12,17 @@ The features of this API include getting data about user\s, connecting and verif
 
 ## Table Of Contents
 
-1. [url and endpoints list.](#url--endpoints)
+1. [Url and Endpoints list.](#url--endpoints)
 
-2. [Base response structure.](#base-response-structure)
+2. [Base Response Model Structure.](#base-response-model-structure)
 
 3. [Authentication.](#authentication)
 
 4. [User Data.](#user-data)
 
 5. [User Verification.](#user-verification)
+
+6. [For Miners And more](#for-miners--other-stuff)
 
 ## URL & Endpoints
 
@@ -31,7 +33,7 @@ The features of this API include getting data about user\s, connecting and verif
     auth-required: false  
     returns: none  
 
-* /ping
+* [/ping](#ping)
 
     > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/ping`  
     method: get  
@@ -108,9 +110,49 @@ The features of this API include getting data about user\s, connecting and verif
     auth-required: true  
     returns: data about the verification, was it verified and by who.
 
-## Base Response Structure
+## Base Response Model Structure
 
-The basic structure of a response.  
+### The basic structure of a response will always be the following model  
+
+```json
+{  
+    "success":Bool,
+    "data":Object,
+    "errors":Array
+}
+```
+
+### for example  
+
+```json
+{  
+    "success":true,
+    "data": {
+        "jwt":"s0m3SeCrEtSTUFFH3re12421421421"
+        },
+    "errors":[]
+}
+```
+
+The only case you will not get a response in this model, is if `data` is null. meaning you will get only `success` and `errors`. or if there are connectivity issues / server is down. which in that case will prevent you from reaching the api at all.
+
+### /ping
+
+Your first endpoint to try, this endpoint can be used to check if there is connectivity to payvolt api. it will alway return `success` as `true` and the `data` property will be absent.  
+
+> url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/ping`  
+method: get  
+auth-required: false  
+returns: if request was successful, used to check connectivity with payvolt.  
+
+**response:**
+
+```json
+{  
+    "success":true,
+    "errors":[]
+}
+```
 
 ## Authentication
 
@@ -123,3 +165,5 @@ Fetching data about users
 ## User Verification
 
 Verifiying a user and connecting him to your platform
+
+## For Miners & Other stuff
