@@ -8,7 +8,7 @@ if you encountered any issues or need guidance, you can open a ticket in our [di
 
 Payvolt provides a simple RESTful API that you can embed in your app\platform.  
 This document explains how to use the payvolt RESTful API and assumes you are familiar with using and preforming [REST API](https://aws.amazon.com/what-is/restful-api/) calls.  
-The features of this API include getting data about user\s (how much they mined for you), connecting and verifying payvolt users in your platform.
+The features of this API include getting data about user\s (how much they mined for you), connecting and verifying payvolt users to your platform.
 
 **to use this API you will need a payvolt user, sign up at [payvolt](https://payvolt.io).**
 
@@ -225,9 +225,9 @@ Payvolt uses the [bearer token](https://swagger.io/docs/specification/authentica
 Authorization: Bearer <token>
 ```
 
-in order to get the **token** you will need to use the sign-in endpoint by sending the email you registered with and your password in the request body.  
+in order to **get the token** you will need to use the sign-in endpoint by sending the email you registered with, and your password in the request body.  
 
-a token expires after **one hour** of issuing and there is no way to prolong it for security reason. preform a sign-in before every api usage flow or get the token every hour in an interval.
+a token expires after **one hour** of issuing and there is no way to prolong it for security reasons. preform a sign-in before every api usage flow or get the token every hour in an interval/cron.
 
 **Don't** use your sign in credentials in a front end app where users has access to it, you will have a high risk of being compromised.
 
@@ -266,7 +266,7 @@ returns: jwt bearer token to be used in endpoints that require authentication.
 }
 ```
 
-*In order to use the token in endpoints that require authorization, insert it in the* **header** *in the* Authorization **key** *(create it if it doesn't exist). the key value needs to be the token* **predeceased** *by* **bearer**  
+*In order to use the token in endpoints that require authorization, insert it in the* **header** *in the* **Authorization** *key (create it if it doesn't exist). the key value needs to be the token with the string* **bearer** *before it.*  
 
 header example:  
 
@@ -276,7 +276,7 @@ Authorization: Bearer fAKeToKeNiJSUzI1NiIsImtp...
 
 ### /auth
 
-the auth endpoint decrypts the token for its information, the endpoint is useful if you want to check if the token is expired, when it is about to get expired or to get your user id.
+the auth endpoint decrypts the token for its information, the endpoint is useful if you want to check if the token is expired, when it is about to get expired or to get your [user id](#user-id).
 > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/auth`  
 method: get  
 auth-required: true  
