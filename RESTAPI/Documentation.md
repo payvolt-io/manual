@@ -10,7 +10,11 @@ Payvolt provides a simple RESTful API that you can embed in your app\platform.
 This document explains how to use the payvolt RESTful API and assumes you are familiar with using and preforming [REST API](https://aws.amazon.com/what-is/restful-api/) calls.  
 The features of this API include getting data about user\s, connecting and verifying payvolt users in your platform.
 
+**to use this API you will need a payvolt user, sign up at [payvolt](https://payvolt.io).**
+
 ## Table Of Contents
+
+0. [What Is User Id.](#user-id)
 
 1. [Url and Endpoints list.](#url-and-endpoints)
 
@@ -23,6 +27,24 @@ The features of this API include getting data about user\s, connecting and verif
 5. [User Verification.](#user-verification)
 
 6. [For Miners And more](#for-miners-and-other-stuff)
+
+## User Id
+
+User id is used to uniquely identify a user by other users and payvolt itself.  
+user id is permanent and its not sensitive information.
+there are two way of getting your user id:  
+
+1. after logging in at the [payvolt](https://payvolt.io) website, click your email in the top right corner.
+
+2. through the [/auth](#auth) API endpoint.
+
+there are 3 ways of getting user id of another user.
+
+1. searching their name in the [search page](https://payvolt.io/search).
+
+2. using the [/verification](#user-verification) API endpoint(s), in conjunction of communicating with the user.
+
+3. the user sending you their id or profile page (by them click their email and sending you the link).
 
 ## URL And Endpoints
 
@@ -40,14 +62,14 @@ The features of this API include getting data about user\s, connecting and verif
     auth-required: false  
     returns: if request was successful, used to check connectivity with payvolt.  
 
-* /signin
+* [/signin](#signin)
 
     > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/signin`  
     method: post  
     auth-required: false  
     returns: jwt bearer token to be used in endpoints that require authentication.  
 
-* /auth
+* [/auth](#auth)
 
     > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/auth`  
     method: get  
@@ -112,7 +134,7 @@ The features of this API include getting data about user\s, connecting and verif
 
 ## Base Response Model Structure
 
-### The basic structure of a response will always be the following model  
+The basic structure of a response will always be the following model  
 
 ```json
 {  
@@ -122,7 +144,7 @@ The features of this API include getting data about user\s, connecting and verif
 }
 ```
 
-### for example  
+for example  
 
 ```json
 {  
@@ -154,9 +176,92 @@ returns: if request was successful, used to check connectivity with payvolt.
 }
 ```
 
+### Error
+
+the base model structure for an error will alway be the same
+
+```json
+{
+    "msg": String,
+    "param": String,
+    "location": String
+}
+```
+
+* `msg` a description of what went wrong.
+* `param` the suspected input in the request that caused the issue.
+* `location` the location in the request bad param is present, possible location: header, body, url.  
+
+in a response with an error the `success` property will always be `false`.  
+example error of an expired jwt token:
+
+**response:**
+
+```json
+{
+    "success": false,
+    "errors": [
+        {
+            "msg": "Firebase ID token has \"kid\" claim which does not correspond to a known public key. Most likely the ID token is expired, so get a fresh token from your client app and try again.",
+            "param": "authorization",
+            "location": "header"
+        }
+    ]
+}
+```
+
+the response will usually be in an appropriate status code for the error (403,404,500 etc).
+
+a response might have multiple errors in the errors list if a few request inputs were bad.
+
 ## Authentication
 
-Authentication
+### *high level preface*
+
+Payvolt uses the [bearer token](https://swagger.io/docs/specification/authentication/bearer-authentication/) type authentication. in short, to use an endpoint that requires authentication a bearer token will need to be present in the request header.
+
+```yaml
+Authorization: Bearer <token>
+```
+
+in order to get the **token** you will need to use the sign-in endpoint by sending the email you registered with and your password in the request body.  
+
+### /signin
+
+the sigh-in endpoint is used to get the jwt bearer token.
+the http request method for this endpoint is `post`, the request body needs include a json object with an `email` and a `password` property.  
+
+a successful response will return your token in the `jwt` property inside the `data` property.
+
+> url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/signin`  
+method: post  
+auth-required: false  
+returns: jwt bearer token to be used in endpoints that require authentication.  
+
+**request body:**
+
+```json
+{
+    "email":"youremail@mail.com",
+    "password":"yourpassword"
+}
+```
+
+**response:**
+
+```json
+{
+    "success": true,
+    "data": {
+        "jwt": "fAKeToKeNiJSUzI1NiIsImtpZCI6IjA2M2E3Y2E0M2MzYzc2MDM2NzRlZGE0YmU5NzcyNWI3M2QwZGMwMWYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcGF5dm9sdC00YWUwOSIsImF1ZCI6InBheXZvbHQtNGFlMDkiLCJhdXRoX3RpbWUiOjE2NTk0ODk1ODIsInVzZXJfaWQiOiJIWWVPOFVsQVlWUm9sZm9FQkpDV0cwWDI5b1kyIiwic3ViIjoiSFllTzhVbEFZVlJvbGZvRUJKQ1dHMFgyOW9ZMiIsImlhdCI6MTY1OTQ4OTU4MiwiZXhwIjoxNjU5NDkzMTgyLCJlbWFpbCI6InRlc3QyQG1haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbInRlc3QyQG1haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.0unZ9TrATq3Pk-SMuOfkRaZNnGcvR4isKitMspNSDlWjq2zHrBOClwmEqzZvx-JvdARR3wDLmvQhZEIST3veWZIWQ_NS1gLVRwha_YFQpkzqr-UhTV_Z6YQvB81QY6clPXjpGcPguMCsacIWqctF_2wDl-eKMJDYP6w0CulHbRicvgBkiurDgu9BKehyYUecXDx-tlpw7lGtChwmWRQnlAc0C9_igFajHYg9KsmbhsllybUKXRW0tW23tr9bt1RXcEW0PSQwLoPeX7r7bEQk8r36zQYVoK38v4dk8VJ7nmSHEOaz_z38nADy3Aw1fH-lZGJnA3-gBspwUh5YJ6x3BN"
+    },
+    "errors": []
+}
+```
+
+### /auth
+
+the auth endpoint decrypts the token for its information, the endpoint is useful if you want to check if the token is expired, when it is about to get expired or to get your user id.
 
 ## User Data
 
