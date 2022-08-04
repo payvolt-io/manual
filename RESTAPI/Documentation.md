@@ -472,7 +472,7 @@ same data as in [/miners](#miners) but you get only the data for requested miner
 
 ### high level preface
 
-user verfication is a way for you to validate people thier claim on a payvolt user, and establish a relation \ connection between thier payvolt user and your platform.  
+user verfication is a way for you to validate people their claim on a payvolt user, and establish a relation \ connection between their payvolt user and your platform.  
 
 using the API you will create a 'verification object', this verification object can be verified by a payvolt user through the payvolt website. you can configure the verification time window, and if the verification can be verified only by a specific user and more.
 
@@ -605,3 +605,5 @@ this enpoint requires authentication.
 `message` - the message that is displayed for the user at the verification page
 
 ## For Miners And Other stuff
+
+TBD
