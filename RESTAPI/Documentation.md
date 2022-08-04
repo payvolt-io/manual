@@ -460,18 +460,7 @@ will return data of the miner with the [user id](#user-id) of `J3Lc4Sxe26UkEBIzV
                 "eth": "0xE75e39FEecf6e9E6AA293cA037A7Ae6a17940A40",
                 "btc": "test3"
             }
-        },
-        "B5uK4TUebnUkzVEBWpJI4qerJcq3": {
-            ...
-            
-        },
-        "nT56gQwV88BUkEIJ4qezVWpr4fhUi": {
-            ...
-            
-        },
-        . 
-        .
-        .
+        }
     },
     "errors": []
 }
