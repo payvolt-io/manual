@@ -412,7 +412,7 @@ returns: list of all users that mine or mined for the requester.
 
 `workers` is a list of id's of devices preforming mining for you by that user, as he can have serval machines.
 
-`last_seen` is a unix time stamp of when mining last occurred.
+`last_seen` is a [unix time stamp](#https://www.unixtimestamp.com/) of when mining last occurred.
 
 `current_hashrate` is how many hashes per second the users mines.
 
@@ -481,6 +481,25 @@ same data as in [/miners](#miners) but you get only the data for requested miner
 
 ## User Verification
 
-Verifying a user and connecting him to your platform
+### high level preface
+
+user verfication is a way for you to validate people thier claim on a payvolt user, and establish a relation \ connection between thier payvolt user and your platform.  
+
+using the API you will create a 'verification object', this verification object can be verified by a payvolt user through the payvolt website. you can configure the verification time window, and if the verification can be verified only by a specific user and more.
+
+the verification object is temporary and will be deleted between 1-23 hours after its creation.
+
+how you use the verification object is up to you and your platform constraints. it can be a one time verification or before any transaction that occurs on your platform etc.
+
+### /verification
+
+with this endpoint you will create the verification object.
+
+use the post method to create it.
+
+> url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/verification`  
+method: post  
+auth-required: true  
+returns: if verification link created successfully, id of verification.
 
 ## For Miners And Other stuff
