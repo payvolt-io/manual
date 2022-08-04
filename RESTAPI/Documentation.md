@@ -139,7 +139,7 @@ The basic structure of a response body will always be the following model
 
 ```json
 {  
-    "success":Bool,
+    "success":Boolean,
     "data":Object,
     "errors":Array
 }
@@ -351,7 +351,133 @@ returns: info about a user (name, description, avatar, wallet address, payment p
 
 ### /miners
 
-Get a list of all the users that are mining or mined for you.
+Get a list of all the users that are mining or mined for you, requires authentication.
+
+the response is a list of all the users that are mining for you inside the `data` property, where each key is the [user id](#user-id).
+> url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/miners`  
+method: get  
+auth-required: true  
+returns: list of all users that mine or mined for the requester. 
+
+**request header:**
+
+```yaml
+ Authorization: Bearer fAKeToKeNiJSUzI1N...
+```
+
+**response body:**
+
+```json
+{
+    "success": true,
+    "data": {
+        "J3Lc4Sxe26UkEBIzVWpJ4mdgYkg2": {
+            "total_validated_shares": 106,
+            "total_expected_shares": 45,
+            "current_hashrate": 124124,
+            "last_seen": 1659583506,
+            "workers": [
+                "d1c2ee95cf7b45d3c9a4e628b4a70427",
+                "BhJ76495cf7b45d3c9a4e62tYyc46Nrg",
+                "e1c25f7cbd3c9e9d4e625a48b4yT3n56"
+            ],
+            "user_info": {
+                "avatar": "https://firebasestorage.googleapis.com/v0/b/payvolt-4ae09.appspot.com/o/profiles%2F3d8a1410-d492-4388-8280-defcbc9c857a?alt=media&token=f607da9b-d778-41aa-99cb-d0914f47b392",
+                "description": "ssssafasf",
+                "payment": "eth",
+                "name": "volter1",
+                "eth": "0xE75e39FEecf6e9E6AA293cA037A7Ae6a17940A40",
+                "btc": "test3"
+            }
+        },
+        "B5uK4TUebnUkzVEBWpJI4qerJcq3": {
+            ...
+            
+        },
+        "nT56gQwV88BUkEIJ4qezVWpr4fhUi": {
+            ...
+            
+        },
+        . 
+        .
+        .
+    },
+    "errors": []
+}
+```
+
+`J3Lc4Sxe26UkEBIzVWpJ4mdgYkg2` is the user id.
+
+`total_validated_shares` is how much shares were mined for you, while `total_expected_shares` are projected to be added to the validated based on the mining progress.
+
+`workers` is a list of id's of devices preforming mining for you by that user, as he can have serval machines.
+
+`last_seen` is a unix time stamp of when mining last occurred.
+
+`current_hashrate` is how many hashes per second the users mines.
+
+`user_info` is the user information same one as in the [settings/{uid}](#settingspayvolt-user-id) endpoint.
+
+### /miners/{payvolt-user-id}
+
+endpoint to get data about the mining of a specific users.
+
+> url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/miners/{payvolt-user-id}`  
+method: get  
+auth-required: true  
+returns: mining info of the requested miner id.  
+
+for example getting `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/miners/J3Lc4Sxe26UkEBIzVWpJ4mdgYkg2`  
+will return data of the miner with the [user id](#user-id) of `J3Lc4Sxe26UkEBIzVWpJ4mdgYkg2`.
+
+**request header:**
+
+```yaml
+ Authorization: Bearer fAKeToKeNiJSUzI1N...
+```
+
+**response body:**
+
+```json
+{
+    "success": true,
+    "data": {
+        "J3Lc4Sxe26UkEBIzVWpJ4mdgYkg2": {
+            "total_validated_shares": 106,
+            "total_expected_shares": 45,
+            "current_hashrate": 124124,
+            "last_seen": 1659583506,
+            "workers": [
+                "d1c2ee95cf7b45d3c9a4e628b4a70427",
+                "BhJ76495cf7b45d3c9a4e62tYyc46Nrg",
+                "e1c25f7cbd3c9e9d4e625a48b4yT3n56"
+            ],
+            "user_info": {
+                "avatar": "https://firebasestorage.googleapis.com/v0/b/payvolt-4ae09.appspot.com/o/profiles%2F3d8a1410-d492-4388-8280-defcbc9c857a?alt=media&token=f607da9b-d778-41aa-99cb-d0914f47b392",
+                "description": "ssssafasf",
+                "payment": "eth",
+                "name": "volter1",
+                "eth": "0xE75e39FEecf6e9E6AA293cA037A7Ae6a17940A40",
+                "btc": "test3"
+            }
+        },
+        "B5uK4TUebnUkzVEBWpJI4qerJcq3": {
+            ...
+            
+        },
+        "nT56gQwV88BUkEIJ4qezVWpr4fhUi": {
+            ...
+            
+        },
+        . 
+        .
+        .
+    },
+    "errors": []
+}
+```
+
+same data as in [/miners](#miners) but you get only the data for requested miner id  
 
 ## User Verification
 
