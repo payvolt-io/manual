@@ -502,4 +502,117 @@ method: post
 auth-required: true  
 returns: if verification link created successfully, id of verification.
 
+this enpoint requires authentication.
+
+**request header:**
+
+```yaml
+ Authorization: Bearer fAKeToKeNiJSUzI1N...
+```
+
+you can leave the request body empty, but there are optional inputs for this endpoint.
+
+**request body:**
+
+```json
+// each one of the inputs is optional, you can have 2 or 1 or no inputs.
+{
+    "to": "userIdString",
+    "expiration": "5m"/"30m"/"60m",
+    "message": "custom string message"
+}
+                
+```
+
+`to` *(optional)* - a user id of someone we want to validate, if 'to' is specified only that user can verifiy the object.  
+
+`expiration` *(optional)* - until when from the creation of the object the user can verify, the options are `5m` , `30m` or `60m`, if not specified the default value is `30m`. a user can't verify after expiration.
+
+`message` *(optional)* - a custom message you display to the user, if not specified a default message will be displayed.
+
+**response body:**
+
+```json
+{
+    "success": true,
+    "data": {
+        "db_stats": {
+            "_writeTime": {
+                "_seconds": 1659634281,
+                "_nanoseconds": 288066000
+            }
+        },
+        "id": "cef3c9f06be754fa98fb5b86aa8c7d0b"
+    },
+    "errors": []
+}
+```
+
+`db_stats` is just the time took for creation
+
+`id` is the id of the verification object, it will be used by the user to verify and by you to view the verification status.
+
+### user verifing a verification object with payvolt website
+
+a user can verify your verification request by going to:
+
+`https://payvolt.io/verification?id={verification-object-id}`
+
+from the previous example it would be:
+
+`https://payvolt.io/verification?id=cef3c9f06be754fa98fb5b86aa8c7d0b`
+
+there he will be displayed a prompt to verify this link.
+
+in the verification process, you should concat the `id` to the url `https://payvolt.io/verification?id=` and send it to the user in your app.
+
+### /verification/{verification-id}
+
+this is used to get data about the verification object, and check if it was verified.
+
+> url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/verification/{verification-id}`  
+method: get  
+auth-required: true  
+returns: get data about the verification.
+
+this enpoint requires authentication.
+
+**request header:**
+
+```yaml
+ Authorization: Bearer fAKeToKeNiJSUzI1N...
+```
+
+**response body:**
+
+```json
+{
+    "success": true,
+    "data": {
+        "from": "J3Lc4Sxe26UkEBIzVWpJ4mdgYkg2",
+        "verified": true,
+        "expiration": {
+            "_seconds": 1659636080,
+            "_nanoseconds": 847000000
+        },
+        "to": "",
+        "verifiedBy": "B5uK4TUebnUkzVEBWpJI4qerJcq3",
+        "message": "Hello , volter1 is asking you to verifiy you payvolt identity (expires in 30 minutes)"
+    },
+    "errors": []
+}
+```
+
+`from` - id of who issues the verification (you).
+
+`verified` - was it verified by a user?
+
+`expiration` - `_seconds` \ `_nanoseconds` unix time stamp of when does the option to verify expire.
+
+`to` - only this id can verifiy, if empty anyone can verify.
+
+`verifiedBy` - the id of the person who verified
+
+`message` - the message that is displayed for the user at the verification page
+
 ## For Miners And Other stuff
