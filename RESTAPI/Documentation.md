@@ -84,7 +84,7 @@ there are 3 ways of getting user id of **another user**.
     auth-required: true  
     returns: list of all users that mine or mined for the requester.  
 
-* /miners/{payvolt-user-id}
+* [/miners/{payvolt-user-id}](#minerspayvolt-user-id)
 
     > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/miners/{payvolt-user-id}`  
     method: get  
@@ -112,7 +112,7 @@ there are 3 ways of getting user id of **another user**.
     auth-required: false  
     returns: info about a user (name, description, avatar, wallet address, payment preference).  
 
-* /verification
+* [/verification](#verification)
 
     > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/verification`  
     method: post  
@@ -126,7 +126,7 @@ there are 3 ways of getting user id of **another user**.
     auth-required: true  
     returns: delete the verification link.
 
-* /verification/{verification-id}
+* [/verification/{verification-id}](#verificationverification-id)
 
     > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/verification/{verification-id}`  
     method: get  
