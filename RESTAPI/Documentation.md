@@ -372,6 +372,8 @@ returns: list of all users that mine or mined for the requester.
     "success": true,
     "data": {
         "J3Lc4Sxe26UkEBIzVWpJ4mdgYkg2": {
+            "total_validated_wei": 10446,
+            "total_expected_wei": 945,
             "total_validated_shares": 106,
             "total_expected_shares": 45,
             "current_hashrate": 124124,
@@ -407,6 +409,12 @@ returns: list of all users that mine or mined for the requester.
 ```
 
 `J3Lc4Sxe26UkEBIzVWpJ4mdgYkg2` is the user id.
+
+`total_validated_wei` is how much ethereum was mined for you in [wei](#https://eth-to-wei.com).
+
+*note: if you chose to recive earning as bitcoin, the ethereum will be converted in an exchange*.
+
+`total_expected_wei` is how much wei is projected to be added to total_validated_wei.
 
 `total_validated_shares` is how much shares were mined for you, while `total_expected_shares` are projected to be added to the validated based on the mining progress.
 
