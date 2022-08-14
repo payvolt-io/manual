@@ -77,30 +77,30 @@ there are 3 ways of getting user id of **another user**.
     auth-required: true  
     returns: data about authentication token.  
 
-* [/miners](#miners)
+* [/miners/{coin}](#miners)
 
-    > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/miners`  
+    > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/miners/{coin}`  
     method: get  
     auth-required: true  
     returns: list of all users that mine or mined for the requester.  
 
-* [/miners/{payvolt-user-id}](#minerspayvolt-user-id)
+* [/miners/{coin}/{payvolt-user-id}](#minerspayvolt-user-id)
 
-    > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/miners/{payvolt-user-id}`  
+    > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/miners/{coin}/{payvolt-user-id}`  
     method: get  
     auth-required: true  
     returns: data of specific user that mine or mined for the requester.  
 
-* /recivers
+* /recivers/{coin}
 
-    > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/recivers`  
+    > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/recivers/{coin}`  
     method: get  
     auth-required: true  
     returns: list of all users that the requester is mining or mined for.  
 
-* /recivers/{payvolt-user-id}
+* /recivers/{coin}/{payvolt-user-id}
 
-    > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/recivers/{payvolt-user-id}`  
+    > url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/recivers/{coin}/{payvolt-user-id}`  
     method: get  
     auth-required: true  
     returns: data of specific user that the requester mine or mined for them.  
@@ -349,7 +349,7 @@ returns: info about a user (name, description, avatar, wallet address, payment p
 }
 ```
 
-### /miners
+### /miners/{coin}
 
 Get a list of all the users that are mining or mined for you, requires authentication.
 
@@ -431,7 +431,7 @@ returns: list of all users that mine or mined for the requester.
 
 `user_info` is the user information same one as in the [settings/{uid}](#settingspayvolt-user-id) endpoint.
 
-### /miners/{payvolt-user-id}
+### /miners/{coin}/{payvolt-user-id}
 
 endpoint to get data about the mining of a specific users.
 
