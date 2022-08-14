@@ -354,10 +354,15 @@ returns: info about a user (name, description, avatar, wallet address, payment p
 Get a list of all the users that are mining or mined for you, requires authentication.
 
 the response is a list of all the users that are mining for you inside the `data` property, where each key is the [user id](#user-id).
-> url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/miners`  
+> url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/miners/{coin}`
+
 method: get  
 auth-required: true  
-returns: list of all users that mine or mined for the requester. 
+returns: list of all users that mine or mined for the requester.
+
+**url params:**
+
+`coin` - the currency that is mined, the option are `eth`, `etc` or `btc`.  
 
 **request header:**
 
@@ -430,13 +435,19 @@ returns: list of all users that mine or mined for the requester.
 
 endpoint to get data about the mining of a specific users.
 
-> url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/miners/{payvolt-user-id}`  
+> url: `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/miners/{coin}/{payvolt-user-id}`  
 method: get  
 auth-required: true  
 returns: mining info of the requested miner id.  
 
-for example getting `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/miners/J3Lc4Sxe26UkEBIzVWpJ4mdgYkg2`  
-will return data of the miner with the [user id](#user-id) of `J3Lc4Sxe26UkEBIzVWpJ4mdgYkg2`.
+**url params:**
+
+`payvolt-user-id` - the id of the miner you want to get his info.
+
+`coin` - the currency that is mined, the option are `eth`, `etc` or `btc`.  
+
+for example getting `https://us-central1-payvolt-4ae09.cloudfunctions.net/api/miners/eth/J3Lc4Sxe26UkEBIzVWpJ4mdgYkg2`  
+will return data of the ethereum miner with the [user id](#user-id) of `J3Lc4Sxe26UkEBIzVWpJ4mdgYkg2`.
 
 **request header:**
 
